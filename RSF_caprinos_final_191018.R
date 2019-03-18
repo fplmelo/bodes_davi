@@ -137,8 +137,25 @@ leaflet(data_caprB2)%>%addTiles()%>%
 ggplot(data_caprB2, aes(x=location.long, y=location.lat))+geom_point()
 
 #more than one  
-ggplot(data_capr, aes(x=location.long, y=location.lat))+geom_point()+
-  facet_wrap(~ID, scales="free")
+
+# Excluding bodes
+data_capr<-data_capr[-grep("B04",data_capr$ID ),] # bodes presos
+data_capr<-data_capr[-grep("B09",data_capr$ID ),] # bodes presos
+library(plyr)
+chulls <- ddply(data_capr, .(ID), function(data_capr) data_capr[chull(data_capr$location.long, data_capr$location.lat), ])
+chulls
+#centroid <- aggregate(cbind(AxcQ1, AxcQ2) ~ syndrome, data=chulls, FUN=mean)
+#levels(centroid$syndrome)<-c("A","B","C","D")
+#levels(chulls$syndrome)<-c("A","B","C","D")
+chulls
+
+ggplot(data_capr, aes(x=location.long, y=location.lat, color=ID, fill= ID))+geom_point()+
+  geom_polygon(data=chulls, aes(x=location.long, y=location.lat, color=ID),show.legend =FALSE, alpha =0.5)+
+  xlab("Longitude (Decimal degrees)") + ylab("Latitude (Decimal degrees)")+
+  theme_bw()
+
+#+
+ # facet_wrap(~ID, scales="free")
 
 #' Now, all on 1 plot
 #+fig.height=6, fig.width=12
