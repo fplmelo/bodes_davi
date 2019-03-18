@@ -161,8 +161,8 @@ ggplot(data_capr, aes(x=location.long, y=location.lat, color=ID, fill= ID))+geom
 #+fig.height=6, fig.width=12
 data_capr<-data_capr[-grep("B04",data_capr$ID ),] # bodes presos
 data_capr<-data_capr[-grep("B09",data_capr$ID ),] # bodes presos
-data_capr<-data_capr[-grep("B08",data_capr$ID ),] # definir porque tiramos esses
-data_capr<-data_capr[-grep("B12",data_capr$ID ),] # definir porque tiramos esses
+#data_capr<-data_capr[-grep("B08",data_capr$ID ),] # definir porque tiramos esses
+#data_capr<-data_capr[-grep("B12",data_capr$ID ),] # definir porque tiramos esses
 
 ## Gráfico potencial para material suplementar
 ggplot(data_capr, aes(x=location.long, y=location.lat, color=as.factor(ID)))+
